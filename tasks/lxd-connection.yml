@@ -1,0 +1,6 @@
+---
+- name: Uninstall OpenSSH
+  package:
+    name: openssh-server
+    state: absent
+  become: yes

@@ -1,0 +1,24 @@
+---
+common_packages:
+  default:
+    become: sudo
+    getfacl: acl
+  pkg_mgr:
+    yum:
+      # Used for the list operation of the yum module
+      yum-utils: yum-utils
+  os_family:
+    redhat:
+      selinux-python: python3-libselinux
+      policycoreutils-python: python3-policycoreutils
+    debian:
+      libuser: libuser
+      # excluding selinux management on debian based systems for now, because
+      # it is not part of the configuration of most debian based systems and
+      # would install a lot of packages
+      # selinux-python: python-selinux
+      # policycoreutils-python: policycoreutils-python-utils
+  distro_ver:
+    centos7:
+      selinux-python: libselinux-python
+      policycoreutils-python: policycoreutils-python

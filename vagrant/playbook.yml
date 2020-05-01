@@ -1,0 +1,17 @@
+---
+- hosts: guests
+  pre_tasks:
+    - name: ensure that apt has a list of packages to work with
+      apt:
+        update_cache: yes
+      become: yes
+      changed_when: false
+      when: ansible_pkg_mgr == 'apt'
+  roles:
+    - role: "{{ role_name }}"
+  post_tasks:
+    - name: test list functionality in yum module
+      yum:
+        list:
+      become: yes
+      when: ansible_pkg_mgr == 'yum'

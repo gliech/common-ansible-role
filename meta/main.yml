@@ -1,0 +1,13 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: gliech
+  description: A role that manages a user for the purpose of running ansible and
+    installs packages for some ansible core modules to function fully. This role
+    can not bootstrap a host on its on. It requires a privileged user (which can
+    optionally be removed as part of this role) and a python executable on the
+    target machine.
+  min_ansible_version: 2.9
+  galaxy_tags: []
+
