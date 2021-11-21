@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: common
   author: gliech
   description: A role that manages a user for the purpose of running ansible and
     installs packages for some ansible core modules to function fully. This role
