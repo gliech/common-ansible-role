@@ -5,7 +5,8 @@
       common_packages.default | combine(
         common_packages['pkg_mgr'][ansible_pkg_mgr | lower] | default({}),
         common_packages['os_family'][ansible_os_family | lower] | default({}),
-        common_packages['distro_ver'][(ansible_distribution+ansible_distribution_major_version) | lower] | default({}) )
+        common_packages['distro_ver'][(ansible_distribution+ansible_distribution_major_version)
+        | lower] | default({}) )
       ).values() | list }}"
     state: present
   become: yes
@@ -13,7 +14,7 @@
 
 - name: Reload facts with new diagnostic tools
   setup:
-  when: common_package_installation.changed
+  when: common_package_installation.changed  # noqa no-handler
 
 - name: Create the ansible user
   user:

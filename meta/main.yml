@@ -8,6 +8,23 @@ galaxy_info:
     can not bootstrap a host on its on. It requires a privileged user (which can
     optionally be removed as part of this role) and a python executable on the
     target machine.
+  license: BSD-4-Clause
   min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - 34
+    - name: Ubuntu
+      versions:
+        - focal
+    - name: Debian
+      versions:
+        - 11
+    - name: ArchLinux
+      versions:
+        - any
   galaxy_tags: []
-

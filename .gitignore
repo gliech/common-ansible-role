@@ -1,3 +1,5 @@
 .vagrant/
 vagrant/*.retry
 vagrant/roles/
+node_modules/
+package-lock.json

@@ -3,11 +3,14 @@ common_packages:
   default:
     become: sudo
     getfacl: acl
+    python-cryptography: python3-cryptography
   pkg_mgr:
     yum:
       # Used for the list operation of the yum module
       yum-utils: yum-utils
   os_family:
+    archlinux:
+      python-cryptography: python-cryptography
     redhat:
       selinux-python: python3-libselinux
       policycoreutils-python: python3-policycoreutils
@@ -22,3 +25,4 @@ common_packages:
     centos7:
       selinux-python: libselinux-python
       policycoreutils-python: policycoreutils-python
+      python-cryptography: python2-cryptography

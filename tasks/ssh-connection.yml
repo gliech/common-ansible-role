@@ -16,23 +16,24 @@
     # the remote machine.
     removes: "{{ common_agent_user_home }}/.ssh"
   become: yes
-  when: common_ssh_secontext.changed
+  when: common_ssh_secontext.changed  # noqa no-handler
 
 - block:
-  - name: Create a temporary file on localhost
-    tempfile:
-      state: file
-    register: admin_keys_file
-    changed_when: False
+    - name: Create a temporary file on localhost
+      tempfile:
+        state: file
+      register: admin_keys_file
+      changed_when: false
 
-  - name: Add ssh public keys of admins to said file
-    assemble:
-      src: files/admin-keys
-      regexp: '.*\.pub'
-      dest: "{{ admin_keys_file.path }}"
-      validate: 'ssh-keygen -lf %s'
-    changed_when: False
-  run_once: True
+    - name: Add ssh public keys of admins to said file
+      assemble:
+        src: files/admin-keys
+        regexp: '.*\.pub'
+        dest: "{{ admin_keys_file.path }}"
+        mode: 0600
+        validate: 'ssh-keygen -lf %s'
+      changed_when: false
+  run_once: yes
   delegate_to: localhost
   tags:
     - ssh-keys
