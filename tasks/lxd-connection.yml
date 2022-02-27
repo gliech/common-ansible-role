@@ -4,3 +4,4 @@
     name: openssh-server
     state: absent
   become: yes
+  when: common_remove_unused_sshd
