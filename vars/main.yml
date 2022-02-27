@@ -1,4 +1,6 @@
 ---
+common_connections_without_user_support:
+  - lxd
 common_packages:
   default:
     become: sudo

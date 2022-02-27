@@ -29,6 +29,7 @@
       common_agent_user_create_local ) | ternary('yes', omit) }}"
     shell: "{{ common_agent_user_shell }}"
   become: yes
+  when: ansible_connection not in common_connections_without_user_support
 
 - name: Allow the ansible user to use sudo
   template:
@@ -39,6 +40,7 @@
     mode: 0440
     validate: "/usr/sbin/visudo -cf %s"
   become: yes
+  when: ansible_connection not in common_connections_without_user_support
 
 - name: Configure the ansible connector
   include_tasks: "{{ lookup('first_found', connection_tasks) }}"
@@ -52,6 +54,7 @@
 - name: Switch to the newly created ansible user
   set_fact:
     ansible_user: "{{ common_agent_user_name }}"
+  when: ansible_connection not in common_connections_without_user_support
 
 - name: Remove the bootstrap user
   user:
@@ -60,3 +63,4 @@
     remove: yes
     force: yes
   become: yes
+  when: ansible_connection not in common_connections_without_user_support
