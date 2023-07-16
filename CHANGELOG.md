@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/gliech/common-ansible-role/compare/v1.1.0...v1.2.0) (2023-07-16)
+
+
+### Features
+
+* make configured connection overwriteable ([79c4591](https://github.com/gliech/common-ansible-role/commit/79c45912b2d1a1e71102402ae4415fbd427a7842))
+
 # [1.1.0](https://github.com/gliech/common-ansible-role/compare/v1.0.0...v1.1.0) (2022-02-27)
 
 
