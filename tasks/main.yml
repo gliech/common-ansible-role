@@ -1,23 +1,23 @@
 ---
 - name: Install essential software
-  package:
-    name: "{{ (
-      common_packages.default | combine(
+  ansible.builtin.package:
+    name: >
+      {{ (common_packages.default | combine(
         common_packages['pkg_mgr'][ansible_pkg_mgr | lower] | default({}),
         common_packages['os_family'][ansible_os_family | lower] | default({}),
-        common_packages['distro_ver'][(ansible_distribution+ansible_distribution_major_version)
-        | lower] | default({}) )
-      ).values() | list }}"
+        common_packages['distro_ver'][(ansible_distribution +
+            ansible_distribution_major_version) | lower] | default({})
+      )).values() | list }}
     state: present
   become: yes
   register: common_package_installation
 
 - name: Reload facts with new diagnostic tools
-  setup:
+  ansible.builtin.setup:
   when: common_package_installation.changed  # noqa no-handler
 
 - name: Create the ansible user
-  user:
+  ansible.builtin.user:
     name: "{{ common_agent_user_name }}"
     state: present
     home: "{{ common_agent_user_home }}"
@@ -25,14 +25,14 @@
     # This option requires luseradd to be installed. Since there is currently no
     # easy way to install this command under archlinux, we have to hope for the
     # best when provisioning arch machines
-    local: "{{ ( ansible_distribution != 'Archlinux' and
-      common_agent_user_create_local ) | ternary('yes', omit) }}"
+    local: "{{ (ansible_distribution != 'Archlinux' and
+      common_agent_user_create_local) | ternary('yes', omit) }}"
     shell: "{{ common_agent_user_shell }}"
   become: yes
   when: ansible_connection not in common_connections_without_user_support
 
 - name: Allow the ansible user to use sudo
-  template:
+  ansible.builtin.template:
     src: "templates/ansible_sudoer.j2"
     dest: "/etc/sudoers.d/90_ansible"
     owner: root
@@ -43,21 +43,22 @@
   when: ansible_connection not in common_connections_without_user_support
 
 - name: Configure the ansible connector
-  include_tasks: "{{ lookup('first_found', connection_tasks) }}"
+  ansible.builtin.include_tasks: "{{ lookup('first_found', connection_tasks) }}"
   vars:
     connection_tasks:
+      - "{{ common_configure_connection }}-connection.yml"
       - "{{ ansible_connection }}-connection.yml"
       - unknown-connection.yml
   tags:
     - ssh-keys
 
 - name: Switch to the newly created ansible user
-  set_fact:
+  ansible.builtin.set_fact:
     ansible_user: "{{ common_agent_user_name }}"
   when: ansible_connection not in common_connections_without_user_support
 
 - name: Remove the bootstrap user
-  user:
+  ansible.builtin.user:
     name: "{{ common_bootstrap_user_name }}"
     state: absent
     remove: yes

@@ -10,22 +10,27 @@ galaxy_info:
     optionally be removed as part of this role) and a python executable on the
     target machine.
   license: BSD-4-Clause
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
   platforms:
     - name: EL
       versions:
-        - 7
-        - 8
+        - "9"
+        - "8"
     - name: Fedora
       versions:
-        - 34
+        - "38"
+        - "37"
+        - "36"
+        - "35"
     - name: Ubuntu
       versions:
+        - jammy
         - focal
     - name: Debian
       versions:
-        - 11
+        - bookworm
+        - bullseye
     - name: ArchLinux
       versions:
-        - any
+        - all
   galaxy_tags: []

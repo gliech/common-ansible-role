@@ -1,6 +1,6 @@
 ---
 - name: Set SELinux context for the .ssh directory
-  sefcontext:
+  community.general.sefcontext:
     target: "{{ common_agent_user_home }}/\\.ssh(/.*)?"
     setype: ssh_home_t
     state: present
@@ -9,7 +9,7 @@
   when: ansible_selinux.status == 'enabled'
 
 - name: Apply SELinux context to existing files
-  command: "restorecon -vr {{ common_agent_user_home }}/.ssh"
+  ansible.builtin.command: "restorecon -vr {{ common_agent_user_home }}/.ssh"
   args:
     # This task does not really remove the .ssh directory. But this is a very
     # convenient way to ensure this command is only run when the files exist on
@@ -18,30 +18,31 @@
   become: yes
   when: common_ssh_secontext.changed  # noqa no-handler
 
-- block:
+- name: Assemble ssh config
+  run_once: yes
+  delegate_to: localhost
+  tags:
+    - ssh-keys
+  block:
     - name: Create a temporary file on localhost
-      tempfile:
+      ansible.builtin.tempfile:
         state: file
       register: admin_keys_file
       changed_when: false
 
     - name: Add ssh public keys of admins to said file
-      assemble:
+      ansible.builtin.assemble:
         src: files/admin-keys
         regexp: '.*\.pub'
         dest: "{{ admin_keys_file.path }}"
         mode: 0600
         validate: 'ssh-keygen -lf %s'
       changed_when: false
-  run_once: yes
-  delegate_to: localhost
-  tags:
-    - ssh-keys
 
 - name: Add admin keys to the ansible user ssh config
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ common_agent_user_name }}"
-    key: "{{ lookup( 'file', admin_keys_file.path ) }}"
+    key: "{{ lookup('file', admin_keys_file.path) }}"
     exclusive: yes
     state: present
   become: yes

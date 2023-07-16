@@ -3,5 +3,7 @@
   hosts: all
   tasks:
     - name: "Import common"
-      import_role:
+      ansible.builtin.import_role:
         name: "gliech.common"
+      vars:
+        common_configure_connection: ssh

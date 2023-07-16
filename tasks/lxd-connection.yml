@@ -1,6 +1,6 @@
 ---
 - name: Uninstall OpenSSH
-  package:
+  ansible.builtin.package:
     name: openssh-server
     state: absent
   become: yes

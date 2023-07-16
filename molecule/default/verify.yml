@@ -2,12 +2,13 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: test list functionality in yum module
-      package:
+    - name: Test list functionality in yum module
+      ansible.builtin.package:
         list:
       become: yes
       when: ansible_pkg_mgr in ['yum', 'dnf']
-    - name: test availability of cryptography module
+
+    - name: Test availability of cryptography module
       community.crypto.openssl_privatekey:
         path: ~/test.key
         type: ECC

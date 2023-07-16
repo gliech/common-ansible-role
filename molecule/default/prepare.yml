@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Initialize package cache
-      package:
+      ansible.builtin.package:
         update_cache: yes
         upgrade: yes
       become: yes
@@ -13,7 +13,7 @@
     # manager. Archlinux has the library already installed through pacman
     # though, so removing it in pip would break the system.
     - name: Remove python-cryptography
-      pip:
+      ansible.builtin.pip:
         name: cryptography
         state: absent
       when: ansible_os_family != 'Archlinux'

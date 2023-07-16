@@ -5,3 +5,4 @@ common_agent_user_shell: /bin/bash
 common_agent_user_create_local: no
 common_bootstrap_user_name: bootstrap
 common_remove_unused_sshd: true
+common_configure_connection: "none"

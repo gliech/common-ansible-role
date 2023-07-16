@@ -4,50 +4,81 @@ dependency:
   options:
     requirements-file: molecule/default/requirements.yml
     role-file: molecule/default/requirements.yml
-lint: |
-  set -e
-  yamllint --strict ./
-  ansible-lint
 driver:
-  name: ${MOL_DRIVER:-podman}
+  name: podman
 platforms:
   - name: mol-common-arch
-    image: gliech/docker-archlinux-ansible:branch-master
+    image: docker.io/gliech/docker-archlinux-ansible:branch-master
     pre_build_image: true
     privileged: true
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-fedora
-    image: geerlingguy/docker-fedora34-ansible
+  - name: mol-common-fedora38
+    image: docker.io/geerlingguy/docker-fedora38-ansible
     pre_build_image: true
     privileged: true
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-rocky
-    image: geerlingguy/docker-rockylinux8-ansible
+  - name: mol-common-fedora37
+    image: docker.io/geerlingguy/docker-fedora37-ansible
     pre_build_image: true
     privileged: true
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-debian
-    image: geerlingguy/docker-debian11-ansible
+  - name: mol-common-fedora36
+    image: docker.io/geerlingguy/docker-fedora36-ansible
     pre_build_image: true
     privileged: true
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-ubuntu
-    image: geerlingguy/docker-ubuntu2004-ansible
+  - name: mol-common-fedora35
+    image: docker.io/geerlingguy/docker-fedora35-ansible
     pre_build_image: true
     privileged: true
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-centos
-    image: geerlingguy/docker-centos7-ansible
+  - name: mol-common-rocky9
+    image: docker.io/geerlingguy/docker-rockylinux9-ansible
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: mol-common-rocky8
+    image: docker.io/geerlingguy/docker-rockylinux8-ansible
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: mol-common-debian12
+    image: docker.io/geerlingguy/docker-debian12-ansible
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: mol-common-debian11
+    image: docker.io/geerlingguy/docker-debian11-ansible
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: mol-common-ubuntu2204
+    image: docker.io/geerlingguy/docker-ubuntu2204-ansible
+    pre_build_image: true
+    privileged: true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: mol-common-ubuntu2004
+    image: docker.io/geerlingguy/docker-ubuntu2004-ansible
     pre_build_image: true
     privileged: true
     override_command: false
@@ -73,7 +104,6 @@ scenario:
     - destroy
   test_sequence:
     - dependency
-    - lint
     - syntax
     - create
     - prepare
