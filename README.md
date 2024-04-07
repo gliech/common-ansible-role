@@ -12,7 +12,7 @@ target machine.
 
 ## Requirements
 
-None.
+A version of Python that Ansible can use.
 
 ## Role Variables
 
