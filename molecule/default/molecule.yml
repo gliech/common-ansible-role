@@ -56,13 +56,15 @@ platforms:
     override_command: false
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: mol-common-debian12
-    image: docker.io/geerlingguy/docker-debian12-ansible
-    pre_build_image: true
-    privileged: true
-    override_command: false
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  # Temporarily remove debian 12 from tests as it currently seems to have
+  # a problem with the container runtime on the github actions runners
+  # - name: mol-common-debian12
+  #   image: docker.io/geerlingguy/docker-debian12-ansible
+  #   pre_build_image: true
+  #   privileged: true
+  #   override_command: false
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: mol-common-debian11
     image: docker.io/geerlingguy/docker-debian11-ansible
     pre_build_image: true
