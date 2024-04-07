@@ -1,3 +1,32 @@
+# [2.0.0](https://github.com/gliech/common-ansible-role/compare/v1.2.0...v2.0.0) (2024-04-07)
+
+
+### Features
+
+* ensure support for community.general.filesystem with type btrfs by installing btrfs-progs ([41ce320](https://github.com/gliech/common-ansible-role/commit/41ce320a6e7aadac31793d7a952c9c27be4a84f8))
+
+
+### Documentation
+
+* **readme:** mention python requirement ([f3b1cf9](https://github.com/gliech/common-ansible-role/commit/f3b1cf997bc87a07960e5e5c4b7e3a94d02764f4))
+* role readme ([30ae0a9](https://github.com/gliech/common-ansible-role/commit/30ae0a90b789604bcdf91a5e6fd65007c949ebca))
+
+
+### Miscellaneous Chores
+
+* change license to GPL3 ([61849e3](https://github.com/gliech/common-ansible-role/commit/61849e32ba0f6468105c620bbbf54faab11ade51))
+
+
+### Continuous Integration
+
+* rename workflow ([57b584e](https://github.com/gliech/common-ansible-role/commit/57b584ef473cb7b1f0ca8c20b28c04505ad5774f))
+* suspend validation of debian 12 ([d4551dc](https://github.com/gliech/common-ansible-role/commit/d4551dc0f2f7e292da4e7ab9b2da23cb6f4ea2a1))
+
+
+### BREAKING CHANGES
+
+* change license to GPL3
+
 # [1.2.0](https://github.com/gliech/common-ansible-role/compare/v1.1.0...v1.2.0) (2023-07-16)
 
 
