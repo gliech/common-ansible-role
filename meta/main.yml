@@ -1,15 +1,14 @@
 ---
 dependencies: []
-
 galaxy_info:
   role_name: common
   author: gliech
   description: A role that manages a user for the purpose of running ansible and
     installs packages for some ansible core modules to function fully. This role
-    can not bootstrap a host on its on. It requires a privileged user (which can
-    optionally be removed as part of this role) and a python executable on the
-    target machine.
-  license: BSD-4-Clause
+    can not bootstrap a host on its own. It requires a privileged user (which
+    can optionally be removed as part of this role) and a python executable on
+    the target machine.
+  license: GPL-3.0-only
   min_ansible_version: "2.9"
   platforms:
     - name: EL
