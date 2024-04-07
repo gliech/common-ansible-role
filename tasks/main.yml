@@ -5,9 +5,10 @@
       {{ (common_packages.default | combine(
         common_packages['pkg_mgr'][ansible_pkg_mgr | lower] | default({}),
         common_packages['os_family'][ansible_os_family | lower] | default({}),
+        common_packages['distro'][ansible_distribution | lower] | default({}),
         common_packages['distro_ver'][(ansible_distribution +
             ansible_distribution_major_version) | lower] | default({})
-      )).values() | list }}
+      )).values() | reject('none') | list }}
     state: present
   become: yes
   register: common_package_installation
@@ -25,8 +26,7 @@
     # This option requires luseradd to be installed. Since there is currently no
     # easy way to install this command under archlinux, we have to hope for the
     # best when provisioning arch machines
-    local: "{{ (ansible_distribution != 'Archlinux' and
-      common_agent_user_create_local) | ternary('yes', omit) }}"
+    local: "{{ common_agent_user_create_local }}"
     shell: "{{ common_agent_user_shell }}"
   become: yes
   when: ansible_connection not in common_connections_without_user_support

@@ -6,6 +6,7 @@ common_packages:
     become: sudo
     getfacl: acl
     python-cryptography: python3-cryptography
+    btrfs-progs: btrfs-progs
   pkg_mgr:
     yum:
       # Used for the list operation of the yum module
@@ -16,6 +17,7 @@ common_packages:
     redhat:
       selinux-python: python3-libselinux
       policycoreutils-python: python3-policycoreutils
+      btrfs-progs: ~
     debian:
       libuser: libuser
       # excluding selinux management on debian based systems for now, because
@@ -23,6 +25,9 @@ common_packages:
       # would install a lot of packages
       # selinux-python: python-selinux
       # policycoreutils-python: policycoreutils-python-utils
+  distro:
+    fedora:
+      btrfs-progs: btrfs-progs
   distro_ver:
     centos7:
       selinux-python: libselinux-python

@@ -14,3 +14,11 @@
         type: ECC
         curve: secp384r1
       register: output
+
+    - name: Test availability of mkfs.btrfs
+      community.general.filesystem:
+        dev: "/dev/null"
+        fstype: btrfs
+      # btrfs is not supported under most RedHat systems
+      when: ansible_os_family != "RedHat" or ansible_distribution == "Fedora"
+      check_mode: true

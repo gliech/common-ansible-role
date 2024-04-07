@@ -1,5 +1,5 @@
 ---
-- name: Prepare Archlinux
+- name: Prepare
   hosts: all
   tasks:
     - name: Initialize package cache
@@ -8,6 +8,7 @@
         upgrade: yes
       become: yes
       when: ansible_pkg_mgr in ['apt', 'pacman']
+
     # The existance of pip-installed cryptography libraries can interfere
     # with the versions that this module  installs through the system package
     # manager. Archlinux has the library already installed through pacman
